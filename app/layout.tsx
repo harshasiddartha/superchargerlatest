@@ -17,7 +17,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "SuperCharger",
-  description: "The fastest way to build surveys and boost your business",
+  description: "The fastest way to build surveys and boost your sales funnel",
 };
 
 const geistSans = Geist({
