@@ -215,23 +215,23 @@ export default function NewQuizPage() {
               onChange={e => setDescription(e.target.value)}
             />
           </div>
-          <div className="rounded-xl shadow-md p-4 bg-gradient-to-br from-primary/5 to-accent/10">
-            <label className="block font-semibold text-foreground mb-3 text-base">Questions</label>
+          <div className="rounded-xl shadow-md p-4 bg-white">
+            <label className="block font-semibold text-gray-900 mb-3 text-base">Questions</label>
             <div className="space-y-4">
               {questions.map((q, qIdx) => (
-                <div key={qIdx} className="border-l-4 border-primary bg-background rounded-xl shadow p-4 hover:shadow-lg transition-all duration-200">
+                <div key={qIdx} className="border-l-4 border-primary bg-gray-50 rounded-xl shadow p-4 hover:shadow-lg transition-all duration-200">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2 gap-y-2">
                     <span className="font-semibold text-primary text-base">Question {qIdx + 1}</span>
                     <button
                       type="button"
-                      className="px-3 py-1 rounded-full bg-destructive/10 text-destructive font-medium shadow hover:bg-destructive/20 transition-all text-xs"
+                      className="px-3 py-1 rounded-full bg-red-100 text-red-600 font-medium shadow hover:bg-red-200 transition-all text-xs"
                       onClick={() => removeQuestion(qIdx)}
                     >
                       Remove
                     </button>
                   </div>
                   <input
-                    className="w-full border border-border rounded-lg p-2 mb-2 bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-sm"
+                    className="w-full border border-border rounded-lg p-2 mb-2 bg-white text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-sm"
                     value={q.text}
                     onChange={e => updateQuestion(qIdx, "text", e.target.value)}
                     placeholder="Question text"
@@ -239,9 +239,9 @@ export default function NewQuizPage() {
                   />
                   <div className="flex flex-wrap gap-2 mb-2">
                     {q.options.map((opt: any, oIdx: number) => (
-                      <div key={oIdx} className="flex items-center gap-2 bg-accent/10 px-3 py-1.5 rounded-full shadow-sm">
+                      <div key={oIdx} className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full shadow-sm">
                         <input
-                          className="border border-border rounded-lg p-1.5 bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-xs"
+                          className="border border-border rounded-lg p-1.5 bg-white text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-xs"
                           value={opt.text}
                           onChange={e => updateOption(qIdx, oIdx, "text", e.target.value)}
                           placeholder={`Option ${oIdx + 1}`}
@@ -249,7 +249,7 @@ export default function NewQuizPage() {
                         />
                         <input
                           type="number"
-                          className="w-12 border border-border rounded-lg p-1.5 bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-xs"
+                          className="w-12 border border-border rounded-lg p-1.5 bg-white text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-xs"
                           value={opt.points}
                           onChange={e => updateOption(qIdx, oIdx, "points", Number(e.target.value))}
                           placeholder="Points"
@@ -258,7 +258,7 @@ export default function NewQuizPage() {
                         />
                         <button
                           type="button"
-                          className="px-2 py-1 rounded-full bg-destructive/10 text-destructive font-medium hover:bg-destructive/20 transition-all text-xs"
+                          className="px-2 py-1 rounded-full bg-red-100 text-red-600 font-medium hover:bg-red-200 transition-all text-xs"
                           onClick={() => removeOption(qIdx, oIdx)}
                         >
                           Remove
@@ -275,7 +275,7 @@ export default function NewQuizPage() {
                   </div>
                   <input
                     type="number"
-                    className="w-16 border border-border rounded-lg p-1.5 bg-background text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-xs"
+                    className="w-16 border border-border rounded-lg p-1.5 bg-white text-gray-900 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition text-xs"
                     value={q.marks}
                     onChange={e => updateQuestion(qIdx, "marks", Number(e.target.value))}
                     placeholder="Marks"

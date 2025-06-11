@@ -18,7 +18,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
         headerContent: (
           <Link 
             href="/protected/quizzes/new" 
-            className="btn-primary px-5 py-2.5 rounded-lg font-semibold shadow hover:scale-105 transition-transform duration-200"
+            className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg font-semibold shadow hover:scale-105 transition-transform duration-200"
           >
             Create New Quiz
           </Link>
