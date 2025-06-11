@@ -1,110 +1,67 @@
-import { PERKS } from "../../constants/perks";
-import { cn } from "@/functions";
-import { LucideIcon } from "lucide-react";
-import Container from "../global/container";
-import { SectionBadge } from "../ui/section-bade";
+import Image from "next/image";
 
-const SURVEY_PERKS = [
+const PERKS_CARDS = [
   {
-    title: "Effortless Survey Creation",
-    description: "Design and launch surveys in minutes with our intuitive builder—no coding required.",
-    icon: PERKS[0].icon,
+    title: "Assessment and Quiz",
+    description: "Create quizzes and assessments to capture insights and deliver personalized feedback instantly.",
+    image: "/images/perk-quiz.jpg",
+    bg: "bg-gradient-to-br from-[#FDF6D8] to-[#C6F5E9]",
   },
   {
-    title: "AI-Powered Insights",
-    description: "Get instant, actionable analysis and summaries powered by advanced AI algorithms.",
-    icon: PERKS[1].icon,
+    title: "Waitlist",
+    description: "Build anticipation and grow your waitlist with an easy-to-use, custom landing pages and questions.",
+    image: "/images/perk-waitlist.jpg",
+    bg: "bg-gradient-to-br from-[#D6E7FF] to-[#F6F6FF]",
   },
   {
-    title: "Real-Time Analytics",
-    description: "Visualize responses with interactive charts and dashboards as data comes in.",
-    icon: PERKS[2].icon,
+    title: "Webinar",
+    description: "Boost attendance and ask the right questions with funnels and landing pages optimized for your next webinar.",
+    image: "/images/perk-webinar.jpg",
+    bg: "bg-gradient-to-br from-[#FDE6D8] to-[#E6D8FD]",
   },
   {
-    title: "Easy Sharing & Publishing",
-    description: "Share surveys with a link or QR code—anyone can participate, anywhere, anytime.",
-    icon: PERKS[3].icon,
+    title: "Video Course",
+    description: "Drive sign-ups for your video course with professional, high-converting landing pages.",
+    image: "/images/perk-video.jpg",
+    bg: "bg-gradient-to-br from-[#FDE6D8] to-[#E6D8FD]",
   },
   {
-    title: "Actionable Feedback",
-    description: "Turn survey results into clear, practical recommendations for your business or project.",
-    icon: PERKS[4].icon,
+    title: "Surveys",
+    description: "Collect valuable data from your audience with our beautiful survey templates.",
+    image: "/images/perk-survey.jpg",
+    bg: "bg-gradient-to-br from-[#FDF6D8] to-[#C6F5E9]",
   },
   {
-    title: "Seamless Integrations",
-    description: "Connect with your favorite tools to automate workflows and sync survey data effortlessly.",
-    icon: PERKS[5].icon,
+    title: "Profile Quiz",
+    description: "Engage your audience with a fun, interactive quiz that offers key insights.",
+    image: "/images/perk-profile.jpg",
+    bg: "bg-gradient-to-br from-[#D6E7FF] to-[#F6F6FF]",
   },
 ];
 
 const Perks = () => {
-    return (
-        <div className="flex flex-col items-center justify-center py-12 md:py-16 lg:py-24 w-full">
-            <Container>
-                <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
-                    <SectionBadge title="Perks" />
-                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-heading font-medium !leading-snug mt-6">
-                        Why choose our AI Survey Platform?
-                    </h2>
-                    <p className="text-base md:text-lg text-center text-accent-foreground/80 mt-6">
-                        Discover the powerful features that make survey creation, distribution, and analysis effortless. Get deeper insights, faster decisions, and more value from every response.
-                    </p>
-                </div>
-            </Container>
-            <Container>
-                <div className="mt-16 w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full relative">
-                        {SURVEY_PERKS.map((perk, index) => (
-                            <Perk key={index} index={index} {...perk} />
-                        ))}
-                    </div>
-                </div>
-            </Container>
-        </div>
-    )
-};
-
-const Perk = ({
-    title,
-    description,
-    icon: Icon,
-    index,
-}: {
-    title: string;
-    description: string;
-    icon: LucideIcon;
-    index: number;
-}) => {
-    return (
-        <div
-            className={cn(
-                "flex flex-col lg:border-r transform-gpu py-10 relative group/feature border-neutral-800",
-                (index === 0 || index === 3) && "lg:border-l",
-                index < 3 && "lg:border-b"
-            )}
-        >
-            {index < 3 && (
-                <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-t from-neutral-80 from-violet-950/25 to-transparent pointer-events-none" />
-            )}
-            {index >= 3 && (
-                <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-b from-neutral-80 from-violet-950/25 to-transparent pointer-events-none" />
-            )}
-            <div className="group-hover/feature:-translate-y-1 transform-gpu transition-all duration-300 flex flex-col w-full">
-                <div className="mb-4 relative z-10 px-10">
-                    <Icon strokeWidth={1.3} className="w-10 h-10 origin-left transform-gpu text-neutral-500 transition-all duration-300 ease-in-out group-hover/feature:scale-75 group-hover/feature:text-foreground" />
-                </div>
-                <div className="text-lg font-medium font-heading mb-2 relative z-10 px-10">
-                    <div className="absolute left-0 -inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-700 group-hover/feature:bg-violet-600 transition-all duration-500 origin-center" />
-                    <span className="group-hover/feature:-translate-y- group-hover/feature:text- transition duration-500 inline-block heading">
-                        {title}
-                    </span>
-                </div>
-                <p className="text-sm text-neutral-300 max-w-xs relative z-10 px-10">
-                    {description}
-                </p>
+  return (
+    <section className="flex flex-col items-center justify-center py-16 w-full bg-white dark:bg-gray-950">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-2 text-gray-900 dark:text-white">Launch your next</h2>
+      <h3 className="text-4xl md:text-5xl font-extrabold text-center mb-10 text-gray-900 dark:text-white">Webinar</h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+        {PERKS_CARDS.map((perk, idx) => (
+          <div
+            key={perk.title}
+            className={`rounded-2xl shadow-lg p-6 flex flex-col items-center ${perk.bg} dark:bg-gray-900`}
+          >
+            <div className="w-full flex justify-center mb-4">
+              <div className="relative w-56 h-40 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800">
+                <Image src={perk.image} alt={perk.title} fill className="object-cover" />
+              </div>
             </div>
-        </div>
-    );
+            <h4 className="text-xl font-extrabold text-gray-900 dark:text-white mb-2 text-center">{perk.title} <span className="inline-block align-middle">→</span></h4>
+            <p className="text-gray-700 dark:text-gray-300 text-base text-center">{perk.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
-export default Perks
+export default Perks;

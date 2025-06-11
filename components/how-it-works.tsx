@@ -1,87 +1,59 @@
-import { HOW_IT_WORKS } from "../constants/how-it-works";
-import { cn } from "../lib/cn";
 import Image from "next/image";
-import AnimationContainer from './global/animation-container';
-import Wrapper from "./global/wrapper";
-import SectionBadge from "./ui/section-badge";
+
+const HOW_IT_WORKS_CARDS = [
+  {
+    title: "Landing pages that convert",
+    description:
+      "Beautiful landing pages that engage your audience and convert – no coding or design skills needed.",
+    image: "/images/hiw1.webp",
+    highlight: "Landing pages",
+  },
+  {
+    title: "Quizzes that engage",
+    description:
+      "Ask the right questions, guide your audience, and uncover meaningful insights while keeping them engaged.",
+    image: "/images/hiw2.webp",
+    highlight: "Quizzes",
+  },
+  {
+    title: "Tailored results that impress",
+    description:
+      "Deliver tailored insights and actionable feedback to build meaningful connections with your audience at scale.",
+    image: "/images/hiw3.webp",
+    highlight: "Tailored results",
+  },
+];
 
 const HowItWorks = () => {
-    return (
-        <Wrapper className="py-20 lg:py-32 relative">
-            <div className="flex flex-col items-center text-center gap-4 py-8 w-full">
-                <AnimationContainer animation="fadeUp" delay={0.2}>
-                    <SectionBadge title="How it works" />
-                </AnimationContainer>
-
-                <AnimationContainer animation="fadeUp" delay={0.3}>
-                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-medium !leading-tight text-transparent bg-clip-text bg-gradient-to-b from-foreground to-neutral-400">
-                        Three steps to success
-                    </h1>
-                </AnimationContainer>
-
-                <AnimationContainer animation="fadeUp" delay={0.4}>
-                    <p className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-lg mx-auto">
-                        Our three-step process simplifies real estate transactions and property management.
-                    </p>
-                </AnimationContainer>
+  return (
+    <section className="py-20 bg-white dark:bg-gray-950">
+      <div className="max-w-5xl mx-auto px-4 flex flex-col items-center">
+        <h2 className="text-5xl font-extrabold text-center mb-6 text-gray-900 dark:text-white">Create. Personalize.<br />Convert.</h2>
+        <p className="text-xl text-center text-gray-500 dark:text-gray-300 mb-16 max-w-2xl">
+          Build data driven marketing funnels to engage and convert your audience — no coding or design skills needed.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+          {HOW_IT_WORKS_CARDS.map((card, idx) => (
+            <div
+              key={card.title}
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg dark:shadow-gray-900 p-8 flex flex-col items-center text-center border border-gray-100 dark:border-gray-800"
+            >
+              <div className="w-full flex justify-center mb-6">
+                <div className="relative w-64 h-40 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800">
+                  <Image src={card.image} alt={card.title} fill className="object-contain" />
+                </div>
+              </div>
+              <h3 className="text-xl font-extrabold text-gray-900 dark:text-white mb-2">
+                <span className="font-bold">{card.highlight}</span>
+                {card.title.replace(card.highlight, "")}
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300 text-base">{card.description}</p>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 w-full pt-10">
-                {HOW_IT_WORKS.map((item, index) => (
-                    <AnimationContainer
-                        key={index}
-                        animation="fadeUp"
-                        delay={0.5 + (index * 0.2)}
-                    >
-                        <div
-                            className={cn(
-                                "flex flex-col items-start gap-4 bg-gradient-to-b rounded-lg lg:rounded-2xl p-4 lg:p-8",
-                                index % 2 === 0 ? "from-neutral-900 to-transparent" : "from-transparent to-neutral-900"
-                            )}
-                        >
-                            <div className="flex items-center gap-x-4">
-                                <AnimationContainer
-                                    animation="scaleUp"
-                                    delay={0.7 + (index * 0.2)}
-                                >
-                                    <div className="size-10 rounded-full bg-gradient-to-b from-primary to-orange-400 flex items-center justify-center">
-                                        <span className="text-lg font-medium text-white">
-                                            {index + 1}
-                                        </span>
-                                    </div>
-                                </AnimationContainer>
-                                <h3 className="text-lg font-medium">
-                                    {item.title}
-                                </h3>
-                            </div>
-                            <div className="space-y-4 w-full">
-                                <AnimationContainer
-                                    animation="fadeUp"
-                                    delay={0.9 + (index * 0.2)}
-                                >
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        width={1024}
-                                        height={1024}
-                                        className="w-full h-52 object-contain"
-                                    />
-                                </AnimationContainer>
-                                <AnimationContainer
-                                    animation="fadeUp"
-                                    delay={1.1 + (index * 0.2)}
-                                >
-                                    <p className="text-sm md:text-base text-muted-foreground">
-                                        {item.description}
-                                    </p>
-                                </AnimationContainer>
-                            </div>
-                        </div>
-                    </AnimationContainer>
-                ))}
-            </div>
-        </Wrapper>
-    )
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default HowItWorks;

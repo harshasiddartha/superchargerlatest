@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
 import Footer from "@/components/marketing/footer";
+import Navbar from "@/components/navbar";
 
 
 const defaultUrl = process.env.VERCEL_URL
@@ -39,6 +40,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           <main className="flex min-h-screen flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-20 items-center">
               {/* Removed navbar and HeaderAuth for post-login experience */}

@@ -15,6 +15,9 @@ import Hero2 from "@/components/hero2";
 import Features2 from "@/components/features2";
 import { LampDemo } from "./lampdemo";
 import Navbar from "@/components/navbar";
+import BlogSection from "@/components/marketing/blog-section";
+import IntegrationsSection from "@/components/marketing/integrations-section";
+import TemplatesSection from "@/components/marketing/templates-section";
 // import ConnectSupabaseSteps from "@/components/tutorial/connect-supabase-steps";
 // import SignUpUserSteps from "@/components/tutorial/sign-up-user-steps";
 // import { hasEnvVars } from "@/utils/supabase/check-env-vars";
@@ -22,19 +25,19 @@ import Navbar from "@/components/navbar";
 export default async function Home() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <Hero /> */}
       {/* <Hero/> */}
       <Hero2/>
       {/* <AgentUiProto/> */}
       {/* <Customize/> */}
-      <PlatformMetrics/>
+      {/* <PlatformMetrics/> */}
       <HowItWorks/>
-      {/* <Features/> */}
-      {/* <Features2/> */}
+      <TemplatesSection/>
       <Companies/>
-      {/* <Connect/> */}
+      {/* <IntegrationsSection/> */}
       <Perks/>
+      <BlogSection/>
       {/* <Pricing/> */}
       <Reviews/>
       <FAQ/>

@@ -8,82 +8,44 @@ import { OrbitingCircles } from "../components/ui/orbiting-circles";
 
 const Hero = () => {
     return (
-        <div className="relative flex flex-col items-center justify-center w-full py-20">
+        <div className="relative flex flex-col items-center justify-center w-full py-20 bg-background">
+            {/* User badge at the top */}
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full shadow bg-white border border-border absolute top-8 left-1/2 -translate-x-1/2 z-10">
+                <div className="flex -space-x-2">
+                    <Image src="/images/User_1.webp" alt="User 1" width={32} height={32} className="rounded-full border-2 border-white" />
+                    <Image src="/images/User_2.webp" alt="User 2" width={32} height={32} className="rounded-full border-2 border-white" />
+                    <Image src="/images/User_3.webp" alt="User 3" width={32} height={32} className="rounded-full border-2 border-white" />
+                </div>
+                <span className="text-gray-700 text-sm font-medium ml-2">9k+ users worldwide</span>
+            </div>
 
-            <div className="absolute flex lg:hidden size-40 rounded-full bg-blue-500 blur-[10rem] top-0 left-1/2 -translate-x-1/2 -z-10"></div>
-
-            <div className="flex flex-col items-center justify-center gap-y-8 relative">
-                <Container className="hidden lg:flex absolute inset-0 top-0 mb-auto flex-col items-center justify-center w-full min-h-screen -z-10">
-                    <OrbitingCircles
-                        speed={0.5}
-                        radius={300}
-                    >
-                        <Icons.circle1 className="size-4 text-foreground/70" />
-                        <Icons.circle2 className="size-1 text-foreground/80" />
-                    </OrbitingCircles>
-                    <OrbitingCircles
-                        speed={0.25}
-                        radius={400}
-                    >
-                        <Icons.circle2 className="size-1 text-foreground/50" />
-                        <Icons.circle1 className="size-4 text-foreground/60" />
-                        <Icons.circle2 className="size-1 text-foreground/90" />
-                    </OrbitingCircles>
-                    <OrbitingCircles
-                        speed={0.1}
-                        radius={500}
-                    >
-                        <Icons.circle2 className="size-1 text-foreground/50" />
-                        <Icons.circle2 className="size-1 text-foreground/90" />
-                        <Icons.circle1 className="size-4 text-foreground/60" />
-                        <Icons.circle2 className="size-1 text-foreground/90" />
-                    </OrbitingCircles>
-                </Container>
-
-                <div className="flex flex-col items-center justify-center text-center gap-y-4 bg-background/0">
-                    <Container className="relative hidden lg:block overflow-hidden">
-                        <button className="group relative grid overflow-hidden rounded-full px-2 py-1 shadow-[0_1000px_0_0_hsl(0_0%_15%)_inset] transition-colors duration-200 mx-auto">
-                            <span>
-                                <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
-                            </span>
-                            <span className="backdrop absolute inset-[1px] rounded-full bg-background transition-colors duration-200 group-hover:bg-neutral-800" />
-                            <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center">
-                                <span className="px-2 py-[0.5px] h-[18px] tracking-wide flex items-center justify-center rounded-full bg-gradient-to-r from-sky-400 to-blue-600 text-[9px] font-medium mr-2 text-white">
-                                    NEW
-                                </span>
-                                Explore the 2024 recap
-                            </span>
-                        </button>
-                    </Container>
-                    <Container delay={0.15}>
-                        <h1 className="text-4xl md:text-4xl lg:text-7xl font-bold text-center !leading-tight max-w-4xl mx-auto">
-                            Create marketing {" "}
-                            <span className="">
-                                funnels {" "}
-                            </span>
-                            that deliver results
+            {/* Main content */}
+            <div className="flex flex-col items-center justify-center text-center gap-y-6 mt-24">
+                <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight max-w-4xl mx-auto">
+                    Attract, Engage, and<br />Convert Your Audience
                         </h1>
-                    </Container>
-                    <Container delay={0.2}>
-                        <p className="max-w-xl mx-auto mt-2 text-base lg:text-lg text-center text-muted-foreground">
-                            Build trust and make sales faster than ever before with personalized marketing automation.
+                <p className="max-w-xl mx-auto mt-2 text-lg text-center text-gray-500">
+                    Create marketing funnels that deliver personalized results,<br />build trust and make sales faster than ever before.
                         </p>
-                    </Container>
-                    <Container delay={0.25} className="z-20">
-                        <div className="flex items-center justify-center mt-6 gap-x-4">
-                            <Link href="#" className="flex items-center gap-2 group">
-                                <Button size="lg">
-                                    Start Free Trial
-                                    <ArrowRightIcon className="size-4 group-hover:translate-x-1 transition-all duration-300" />
+                <div className="flex flex-col items-center gap-2 mt-6">
+                    <Link href="#" className="w-full">
+                        <Button size="lg" className="w-56 text-lg font-semibold">
+                            Get Started
+                            <ArrowRightIcon className="size-5 ml-2" />
                                 </Button>
                             </Link>
+                    <span className="text-gray-500 text-sm mt-1">Start for free. No credit card required.</span>
+                    <Link href="#" className="flex items-center gap-2 text-primary font-medium text-base mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M4 6v12a2 2 0 002 2h8a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2z" /></svg>
+                        Watch Demo
+                    </Link>
+                </div>
                         </div>
-                    </Container>
-                    <Container delay={0.3} className="relative">
-                        <div className="relative rounded-xl lg:rounded-[32px] border border-border p-2 backdrop-blur-lg mt-10 max-w-6xl mx-auto">
+
+            {/* Dashboard image at the bottom (unchanged) */}
+            <div className="relative rounded-xl lg:rounded-[32px] border border-border p-2 backdrop-blur-lg mt-16 max-w-6xl mx-auto">
                             <div className="absolute top-1/8 left-1/2 -z-10 bg-gradient-to-r from-sky-500 to-blue-600 w-1/2 lg:w-3/4 -translate-x-1/2 h-1/4 -translate-y-1/2 inset-0 blur-[4rem] lg:blur-[10rem] animate-image-glow"></div>
                             <div className="hidden lg:block absolute -top-1/8 left-1/2 -z-20 bg-blue-600 w-1/4 -translate-x-1/2 h-1/4 -translate-y-1/2 inset-0 blur-[10rem] animate-image-glow"></div>
-
                             <div className="rounded-lg lg:rounded-[22px] border border-border bg-background">
                                 <Image
                                     src="/images/dashboard.png"
@@ -92,12 +54,6 @@ const Hero = () => {
                                     height={1080}
                                     className="rounded-lg lg:rounded-[20px]"
                                 />
-                            </div>
-
-                        </div>
-                        <div className="bg-gradient-to-t from-background to-transparent absolute bottom-0 inset-x-0 w-full h-1/2"></div>
-                    </Container>
-
                 </div>
             </div>
         </div>
