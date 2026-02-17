@@ -2,9 +2,22 @@
 
 A comprehensive quiz and survey platform built with Next.js, Supabase, and AI integration. Create, manage, and analyze quizzes with powerful analytics and AI-powered insights.
 
-## 🚀 Live Demo
+## 🚀 Quick Start
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+Get SuperCharger up and running in minutes. See the [Deployment Guide](./DEPLOYMENT.md) for detailed deployment instructions.
+
+## 📑 Table of Contents
+
+- [Features](#-features)
+- [Technology Stack](#️-technology-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Database Schema](#-database-schema)
+- [Usage Guide](#-usage-guide)
+- [Configuration](#-configuration)
+- [Deployment](#-deployment)
+- [Contributing](#-contributing)
+- [Additional Resources](#-additional-resources)
 
 ## ✨ Features
 
@@ -87,7 +100,7 @@ A comprehensive quiz and survey platform built with Next.js, Supabase, and AI in
 ## 📁 Project Structure
 
 ```
-quizresultapp/
+supercharger/
 ├── app/                          # Next.js App Router
 │   ├── (auth-pages)/            # Authentication pages
 │   │   ├── sign-in/             # Login page
@@ -113,13 +126,9 @@ quizresultapp/
 │   └── page.tsx                 # Home page
 ├── components/                   # Reusable components
 │   ├── ui/                      # UI components (shadcn/ui)
+│   ├── marketing/               # Marketing page components
 │   ├── tutorial/                # Onboarding components
-│   ├── header-auth.tsx          # Authentication header
-│   ├── hero.tsx                 # Landing page hero
-│   ├── theme-switcher.tsx       # Theme toggle
-│   └── ...
-├── lib/                         # Utility libraries
-│   └── utils.ts                 # Common utilities
+│   └── ...                      # Other components
 ├── utils/                       # Application utilities
 │   ├── supabase/                # Supabase configuration
 │   │   ├── client.ts            # Browser client
@@ -130,8 +139,10 @@ quizresultapp/
 ├── middleware.ts                # Next.js middleware
 ├── components.json              # shadcn/ui configuration
 ├── tailwind.config.ts           # Tailwind configuration
+├── supabase-migration.sql       # Database schema migration
 ├── package.json                 # Dependencies and scripts
-└── README.md                    # This file
+├── README.md                    # This file
+└── DEPLOYMENT.md                # Deployment guide
 ```
 
 ## 🚀 Getting Started
@@ -147,7 +158,7 @@ quizresultapp/
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd quizresultapp
+   cd supercharger
    ```
 
 2. **Install dependencies**
@@ -167,91 +178,23 @@ quizresultapp/
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    GEMINI_API_KEY=your_gemini_api_key
    ```
+   
+   **Where to find these values:**
+   - **Supabase**: Go to your project dashboard → Settings → API
+   - **Gemini API**: Visit [Google AI Studio](https://aistudio.google.com/app/apikey) to create an API key
 
 4. **Set up Supabase database**
    
-   Run the following SQL in your Supabase SQL editor:
-
-   ```sql
-   -- Enable Row Level Security
-   ALTER TABLE auth.users ENABLE ROW LEVEL SECURITY;
-
-   -- Create quizzes table
-   CREATE TABLE public.quizzes (
-     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-     user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
-     title TEXT NOT NULL,
-     description TEXT,
-     is_published BOOLEAN DEFAULT false,
-     ai_generated BOOLEAN DEFAULT false,
-     link TEXT UNIQUE,
-     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
-   );
-
-   -- Create questions table
-   CREATE TABLE public.questions (
-     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-     quiz_id UUID REFERENCES public.quizzes(id) ON DELETE CASCADE,
-     text TEXT NOT NULL,
-     marks INTEGER DEFAULT 1,
-     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
-   );
-
-   -- Create options table
-   CREATE TABLE public.options (
-     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-     question_id UUID REFERENCES public.questions(id) ON DELETE CASCADE,
-     text TEXT NOT NULL,
-     is_correct BOOLEAN DEFAULT false,
-     points INTEGER DEFAULT 0
-   );
-
-   -- Create responses table
-   CREATE TABLE public.responses (
-     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-     quiz_id UUID REFERENCES public.quizzes(id) ON DELETE CASCADE,
-     user_id UUID REFERENCES auth.users(id),
-     respondent_name TEXT,
-     submitted_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
-   );
-
-   -- Create answers table
-   CREATE TABLE public.answers (
-     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-     response_id UUID REFERENCES public.responses(id) ON DELETE CASCADE,
-     question_id UUID REFERENCES public.questions(id) ON DELETE CASCADE,
-     option_id UUID REFERENCES public.options(id) ON DELETE CASCADE
-   );
-
-   -- Set up Row Level Security policies
-   CREATE POLICY "Users can view their own quizzes" ON public.quizzes
-     FOR SELECT USING (auth.uid() = user_id);
-
-   CREATE POLICY "Users can insert their own quizzes" ON public.quizzes
-     FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-   CREATE POLICY "Users can update their own quizzes" ON public.quizzes
-     FOR UPDATE USING (auth.uid() = user_id);
-
-   CREATE POLICY "Users can delete their own quizzes" ON public.quizzes
-     FOR DELETE USING (auth.uid() = user_id);
-
-   CREATE POLICY "Anyone can view published quizzes" ON public.quizzes
-     FOR SELECT USING (is_published = true);
-
-   CREATE POLICY "Anyone can insert responses" ON public.responses
-     FOR INSERT WITH CHECK (true);
-
-   CREATE POLICY "Anyone can insert answers" ON public.answers
-     FOR INSERT WITH CHECK (true);
-
-   CREATE POLICY "Quiz owners can view responses" ON public.responses
-     FOR SELECT USING (
-       quiz_id IN (
-         SELECT id FROM public.quizzes WHERE user_id = auth.uid()
-       )
-     );
-   ```
+   - Navigate to your Supabase project dashboard
+   - Go to **SQL Editor**
+   - Copy the contents of `supabase-migration.sql`
+   - Paste and execute the SQL script
+   - Verify all tables are created successfully
+   
+   **Important Notes:**
+   - Do NOT enable RLS on `auth.users` - it's managed by Supabase Auth and will cause an error
+   - The migration includes complete RLS policies for all tables
+   - All tables use UUID primary keys with cascade deletes for referential integrity
 
 5. **Run the development server**
    ```bash
@@ -317,6 +260,13 @@ The application uses a relational database schema with the following main entiti
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
 - `GEMINI_API_KEY`: Google Gemini API key for AI features
 
+**Gemini API Configuration:**
+- **Model**: Uses `gemini-3-flash-preview` (latest model)
+- **Rate Limits**: Automatic retry logic with exponential backoff for rate limit errors (429)
+- **Quota**: Free tier has limited requests per day/minute
+- **Quota Status**: Check your quota at [Google AI Studio](https://aistudio.google.com/app/apikey)
+- **Documentation**: Latest API docs at [Google AI Documentation](https://ai.google.dev/gemini-api/docs)
+
 ### Customization
 - **Themes**: Modify `tailwind.config.ts` for custom styling
 - **Components**: Extend shadcn/ui components in `components/ui/`
@@ -324,15 +274,17 @@ The application uses a relational database schema with the following main entiti
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
-1. **Connect Repository** to Vercel
-2. **Set Environment Variables** in Vercel dashboard
-3. **Deploy** with automatic builds
+For detailed deployment instructions, see the **[Deployment Guide](./DEPLOYMENT.md)**.
 
-### Other Platforms
-- **Netlify**: Compatible with Next.js static export
-- **Railway**: Full-stack deployment support
-- **DigitalOcean**: App Platform deployment
+### Quick Deploy Options
+
+- **Vercel** (Recommended): One-click deployment with automatic HTTPS and CDN
+- **Netlify**: Compatible with Next.js with plugin support
+- **Railway**: Full-stack deployment with built-in PostgreSQL option
+- **DigitalOcean**: App Platform with managed infrastructure
+- **Self-Hosted**: Docker or traditional server deployment
+
+The deployment guide includes step-by-step instructions for all platforms, troubleshooting tips, and post-deployment configuration.
 
 ## 🤝 Contributing
 
@@ -354,9 +306,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **shadcn/ui** for the beautiful component library
 - **Vercel** for deployment and hosting
 
+## 📚 Additional Resources
+
+- **[Deployment Guide](./DEPLOYMENT.md)**: Comprehensive deployment instructions for all platforms
+- **[Supabase Documentation](https://supabase.com/docs)**: Learn more about Supabase features
+- **[Next.js Documentation](https://nextjs.org/docs)**: Next.js framework documentation
+- **[Google Gemini API](https://ai.google.dev/gemini-api/docs)**: AI API documentation
+
 ## 📞 Support
 
-For support, email support@scoreup.com or join our Discord community.
+For issues, questions, or contributions:
+- Open an issue on GitHub
+- Check the [Deployment Guide](./DEPLOYMENT.md) for deployment-related questions
+- Review application logs for debugging
 
 ---
 

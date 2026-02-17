@@ -89,7 +89,16 @@ export default function QuizResultPage() {
         }).join("\n")}\n\nReturn your advice as a JSON array of sections, each with a 'title' and a 'description' field. Each section should be suitable for display as a card in a dashboard. Example: [{\"title\":\"Section Title\",\"description\":\"...\"}]`;
         try {
           const result = await generateQuizWithGemini(prompt);
-          setGeminiSummary(result.quiz || result.error || "No analysis available.");
+          // Convert object to string if needed
+          let summary: string;
+          if (result.quiz) {
+            summary = typeof result.quiz === 'string' 
+              ? result.quiz 
+              : JSON.stringify(result.quiz);
+          } else {
+            summary = result.error || "No analysis available.";
+          }
+          setGeminiSummary(summary);
         } catch (e) {
           setGeminiSummary("No analysis available.");
         }
@@ -228,8 +237,13 @@ export default function QuizResultPage() {
                   jsonStr = codeBlockMatch[1].trim();
                 }
                 const parsed = JSON.parse(jsonStr);
+                // Handle array of sections
                 if (Array.isArray(parsed) && parsed[0]?.title && parsed[0]?.description) {
                   sections = parsed;
+                }
+                // Handle single object with title and description
+                else if (parsed && typeof parsed === 'object' && parsed.title && parsed.description) {
+                  sections = [parsed];
                 }
               } catch {}
               if (sections.length > 0) {
@@ -240,8 +254,8 @@ export default function QuizResultPage() {
                   </div>
                 ));
               }
-              // Fallback: show as a single card
-              return <div className="p-5 bg-muted border border-border rounded-lg">{geminiSummary}</div>;
+              // Fallback: show as a single card (ensure it's a string)
+              return <div className="p-5 bg-muted border border-border rounded-lg">{typeof geminiSummary === 'string' ? geminiSummary : JSON.stringify(geminiSummary)}</div>;
             })()}
           </div>
         )}

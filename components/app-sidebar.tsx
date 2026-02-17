@@ -79,9 +79,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       {/* Always show trigger at top when collapsed */}
-      <div className="group-data-[state=collapsed]/sidebar-wrapper:flex hidden flex-col items-center py-2 w-12 h-full">
+      {/* <div className="group-data-[state=collapsed]/sidebar-wrapper:flex hidden flex-col items-center py-2 w-12 h-full">
         <SidebarTrigger className="mt-2" />
-      </div>
+      </div> */}
       {/* Show full sidebar content only when not collapsed */}
       <div className="group-data-[state=collapsed]/sidebar-wrapper:hidden flex flex-col h-full">
         <SidebarHeader>
@@ -96,7 +96,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <span className="text-base font-semibold">SuperCharger</span>
                   </a>
                 </SidebarMenuButton>
-                <SidebarTrigger className="ml-2" />
+                {/* <SidebarTrigger className="ml-2" /> */}
               </div>
             </SidebarMenuItem>
           </SidebarMenu>

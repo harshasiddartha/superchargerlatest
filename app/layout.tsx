@@ -6,8 +6,8 @@ import { Nunito } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
-import Footer from "@/components/marketing/footer";
-import Navbar from "@/components/navbar";
+import ConditionalNavbar from "@/components/conditional-navbar";
+import ConditionalFooter from "@/components/conditional-footer";
 
 
 const defaultUrl = process.env.VERCEL_URL
@@ -36,18 +36,19 @@ export default function RootLayout({
       <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <Navbar />
+          <ConditionalNavbar />
           <main className="flex min-h-screen flex-col items-center">
             <div className="flex-1 w-full flex flex-col gap-20 items-center">
               {/* Removed navbar and HeaderAuth for post-login experience */}
               <div className="flex flex-col gap-20 max-w-5xl p-5 w-full">
                 {children}
               </div>
-             <Footer/>
+             <ConditionalFooter/>
             </div>
           </main>
         </ThemeProvider>

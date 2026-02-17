@@ -42,9 +42,9 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
       <div className="flex w-full relative">
         <AppSidebar />
         {/* SidebarTrigger always visible beside sidebar when minimized */}
-        <div className="flex flex-col justify-start">
+        {/* <div className="flex flex-col justify-start">
           <SidebarTrigger className="z-50 mt-4 ml-0" />
-        </div>
+        </div> */}
         <div className="flex-1 flex flex-col">
          
             <SiteHeader title={title}>

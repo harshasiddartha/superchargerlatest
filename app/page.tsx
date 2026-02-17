@@ -33,11 +33,11 @@ export default async function Home() {
       {/* <Customize/> */}
       {/* <PlatformMetrics/> */}
       <HowItWorks/>
-      <TemplatesSection/>
+      {/* <TemplatesSection/> */}
       <Companies/>
       {/* <IntegrationsSection/> */}
-      <Perks/>
-      <BlogSection/>
+      {/* <Perks/> */}
+      {/* <BlogSection/> */}
       {/* <Pricing/> */}
       <Reviews/>
       <FAQ/>
